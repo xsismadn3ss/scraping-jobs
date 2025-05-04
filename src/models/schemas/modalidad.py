@@ -2,5 +2,5 @@ from pydantic import BaseModel
 from typing import Any
 
 class Modalidad(BaseModel):
-    id: Any
+    # id: Any
     nombre: str
