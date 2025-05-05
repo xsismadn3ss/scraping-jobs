@@ -1,6 +1,9 @@
 from pydantic import BaseModel
-from typing import Any
 
-class Modalidad(BaseModel):
-    # id: Any
+
+class ModalidadCreate(BaseModel):
     nombre: str
+
+
+class Modalidad(ModalidadCreate):
+    id: str
