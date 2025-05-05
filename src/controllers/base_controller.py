@@ -1,4 +1,3 @@
-from src.config import db as firestore_db
 from typing import Any, List
 from google.cloud.firestore import (
     DocumentReference,
