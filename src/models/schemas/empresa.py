@@ -1,6 +1,9 @@
 from pydantic import BaseModel
-from typing import Any
 
-class Empresa(BaseModel):
-    # id: Any
+
+class EmpresaCreate(BaseModel):
     nombre: str
+
+
+class Empresa(EmpresaCreate):
+    id: str
