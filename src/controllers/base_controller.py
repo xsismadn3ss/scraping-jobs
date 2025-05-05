@@ -18,7 +18,9 @@ class BaseController:
     def validate_collection_ref(cls, ref) -> bool:
         """Validar referencia a la colección"""
         if ref is None:
-            raise ValueError("No se encontró la referencia a la colección: {}".format(ref.id))
+            raise ValueError(
+                "No se encontró la referencia a la colección: {}".format(ref.id)
+            )
         return True
 
     @classmethod
@@ -26,11 +28,15 @@ class BaseController:
         """Validar referencia a la colección"""
         doc = ref.get()
         if not doc.exists:
-            raise ValueError("No se encontró la referencia al documento: {}".format(ref.id))
+            raise ValueError(
+                "No se encontró la referencia al documento: {}".format(ref.id)
+            )
         return True
 
     @classmethod
-    def get_all(cls, db: Client, collection_name: str, count: int = 10, start_after = None) -> List[Any] | None:
+    def get_all(
+        cls, db: Client, collection_name: str, count: int = 10, start_after=None
+    ) -> List[Any] | None:
         """Obtener todos los documentos de la colección con soporte para paginación"""
         collection_ref: CollectionReference = db.collection(collection_name)
         cls.validate_collection_ref(ref=collection_ref)
@@ -47,7 +53,7 @@ class BaseController:
         return results if results else None
 
     @classmethod
-    def get_by_id(cls, db, collection_name:str, id: str) -> tuple[Any, int] | None:
+    def get_by_id(cls, db, collection_name: str, id: str) -> tuple[Any, int] | None:
         """Obtener un documento por su ID"""
         # obtener y validar coleción
         collecction_ref = db.collection(collection_name)
@@ -64,7 +70,7 @@ class BaseController:
             return None
 
     @classmethod
-    def add(cls, db, collection_name:str, payload: Any) -> Any:
+    def add(cls, db, collection_name: str, payload: Any) -> Any:
         """Crear un nuevo documento en la colección"""
         collection_ref = db.collection(collection_name)
         cls.validate_collection_ref(collection_ref)
@@ -91,12 +97,12 @@ class BaseController:
             return None
 
     @classmethod
-    def update(cls, db, collection_name:str, payload: Any, id: str)-> Any:
+    def update(cls, db, collection_name: str, payload: Any, id: str) -> Any:
         """Actualizar un documento en la colección"""
-        
+
         collection_ref = db.collection(collection_name)
         cls.validate_collection_ref(collection_ref)
-        
+
         doc_ref: DocumentReference = collection_ref.document(id)
         cls.validate_document_ref(ref=doc_ref)
 
@@ -113,7 +119,7 @@ class BaseController:
             return None
 
     @classmethod
-    def delete(cls, db, collection_name:str, id: str) -> bool:
+    def delete(cls, db, collection_name: str, id: str) -> bool:
         """Eliminar un documento de la colección"""
         doc_ref: DocumentReference = db.collection(collection_name).document(id)
 
