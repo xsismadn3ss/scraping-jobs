@@ -1,6 +1,14 @@
 from pydantic import BaseModel
-from typing import Any
 
-class Busqueda(BaseModel):
-    # id: Any
+
+class BusquedaCreate(BaseModel):
+    parametros: str
+
+
+class BusquedaUpdate(BusquedaCreate):
+    pass
+
+
+class Busqueda(BusquedaCreate):
+    id: str
     parametros: str
