@@ -52,13 +52,12 @@ class BaseController:
         return results if results else None
 
     @classmethod
-    def get_by_id(cls, db, collection_name: str, id: str) -> tuple[Any, int] | None:
+    def get_by_id(cls, db: Client, collection_name: str, id: str) -> Any:
         """Obtener un documento por su ID"""
-        # obtener y validar coleción
-        collecction_ref = db.collection(collection_name)
-        cls.validate_collection_ref(ref=collecction_ref)
+        collection_ref: CollectionReference = db.collection(collection_name)
+        cls.validate_collection_ref(ref=collection_ref)
 
-        doc_ref = collecction_ref.get(id)
+        doc_ref: DocumentReference = collection_ref.document(id)
         cls.validate_document_ref(ref=doc_ref)
 
         try:
@@ -69,7 +68,7 @@ class BaseController:
             return None
 
     @classmethod
-    def add(cls, db, collection_name: str, payload: Any) -> Any:
+    def add(cls, db: Client, collection_name: str, payload: Any) -> Any:
         """Crear un nuevo documento en la colección"""
         collection_ref = db.collection(collection_name)
         cls.validate_collection_ref(collection_ref)
@@ -96,7 +95,7 @@ class BaseController:
             return None
 
     @classmethod
-    def update(cls, db, collection_name: str, payload: Any, id: str) -> Any:
+    def update(cls, db: Client, collection_name: str, payload: Any, id: str) -> Any:
         """Actualizar un documento en la colección"""
 
         collection_ref = db.collection(collection_name)
@@ -118,7 +117,7 @@ class BaseController:
             return None
 
     @classmethod
-    def delete(cls, db, collection_name: str, id: str) -> bool:
+    def delete(cls, db: Client, collection_name: str, id: str) -> bool:
         """Eliminar un documento de la colección"""
         doc_ref: DocumentReference = db.collection(collection_name).document(id)
 
