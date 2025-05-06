@@ -21,6 +21,12 @@ class BusquedasController(BaseController):
             return []
 
         return [Busqueda(id=doc_id, **doc_data) for doc_data, doc_id, in documents]
+    
+    @classmethod
+    @override
+    def get_by_id(cls, db: Client, collection_name: str, id: str) -> Any:
+        doc, doc_id = super().get_by_id(db, collection_name, id)
+        return Busqueda(**doc, id=doc_id)
 
     @override
     @classmethod
