@@ -34,7 +34,7 @@ class OfertasController(BaseController):
     def add(cls, db: Client, collection_name: str, payload: OfertaCreate) -> Any:
         payload_f = payload.model_dump(exclude_none=True)
 
-        # agregar referencias
+        
         for ref_field in ["empresa", "modalidad", "pagina", "busqueda"]:
             if ref_field in payload_f and isinstance(payload_f[ref_field], str):
                 doc_ref: DocumentReference = db.document(payload_f[ref_field])
@@ -56,19 +56,19 @@ class OfertasController(BaseController):
 
         payload_f = payload.model_dump(exclude_none=True)
 
-        # agregar referencias
+       
         for ref_field in ["empresa", "modalidad", "pagina", "busqueda"]:
             if ref_field in payload_f and isinstance(payload_f[ref_field], str):
                 ref: DocumentReference = db.document(payload_f[ref_field])
                 cls.validate_collection_ref(ref)
                 payload_f[ref_field] = ref
 
-        # reemplazar documento
-        doc: dict = doc_ref.get().to_dict()  # type: ignore
+      
+        doc: dict = doc_ref.get().to_dict()  
         doc.update(payload_f)
         doc_ref.update(doc)
         doc_updated = doc_ref.get()
-        return OfertaLinked(**doc_updated.to_dict(), id=doc_updated.id)  # type: ignore
+        return OfertaLinked(**doc_updated.to_dict(), id=doc_updated.id)  
 
     @override
     @classmethod
