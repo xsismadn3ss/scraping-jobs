@@ -64,11 +64,11 @@ class OfertasController(BaseController):
                 payload_f[ref_field] = ref
 
       
-        doc: dict = doc_ref.get().to_dict()  
+        doc: dict = doc_ref.get().to_dict() # type: ignore
         doc.update(payload_f)
         doc_ref.update(doc)
         doc_updated = doc_ref.get()
-        return OfertaLinked(**doc_updated.to_dict(), id=doc_updated.id)  
+        return OfertaLinked(**doc_updated.to_dict(), id=doc_updated.id)  # type: ignore
 
     @override
     @classmethod
