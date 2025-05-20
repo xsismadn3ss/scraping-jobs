@@ -1,0 +1,13 @@
+[project]
+name = "scraping-jobs"
+version = "0.1.0"
+description = "Bot para scraping de ofertas de trabajo"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "bs4>=0.0.2",
+    "firebase-admin>=6.8.0",
+    "pydantic>=2.11.4",
+    "requests>=2.32.3",
+    "rich>=14.0.0",
+]
